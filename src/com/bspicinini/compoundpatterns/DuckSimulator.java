@@ -3,50 +3,20 @@ package compoundpatterns;
 public class DuckSimulator {
 
     public static void main(String[] args) {
+        System.out.println("--------------- Duck Simulator ---------------");
         var simulator = new DuckSimulator();
-        var duckFactory = new CountingDuckFactory();
-        simulator.simulate(duckFactory);
+        simulator.simulate();
     }
 
-    void simulate(AbstractDuckFactory duckFactory) {
-        
-        var redHeadDuck = duckFactory.createRedHeadDuck();
-        var duckCall = duckFactory.createDuckCall();
-        var rubberDuck = duckFactory.createRubberDuck();
+    void simulate() {
+        var redHeadDuck = new RedHeadDuck(); 
+        var duckCall = new DuckCall();
+        var rubberDuck = new RubberDuck();
         var gooseDuck = new GooseAdapter(new Goose());
 
-        System.out.println("\nDuck Simulator: With Composite - Flocks");
-        var flockOfDucks = new Flock();
-        flockOfDucks.add(redHeadDuck);
-        flockOfDucks.add(duckCall);
-        flockOfDucks.add(rubberDuck);
-        flockOfDucks.add(gooseDuck);
-        
-        var mallardDuck = duckFactory.createMallardDuck();
-        var mallardTwo = duckFactory.createMallardDuck();
-        var mallardThree = duckFactory.createMallardDuck();
-        var mallardFour = duckFactory.createMallardDuck();
-
-        var flockOfMallards = new Flock();
-        flockOfMallards.add(mallardDuck);
-        flockOfMallards.add(mallardTwo);
-        flockOfMallards.add(mallardThree);
-        flockOfMallards.add(mallardFour);
-
-        flockOfDucks.add(flockOfMallards);
-        
-        var quackologist = new Quackologist();
-        flockOfDucks.registerObserver(quackologist);
-        System.out.println("\nDuck Simulator: Whole Flock Simulation");    
-        
-        simulate(flockOfDucks);
-        System.out.println("\nDuck Simulator: Mallard Flock Simulation");
-        simulate(flockOfMallards);
-
-        System.out.println("The ducks quacked " + QuackCounter.getQuacks() + " times");
+        redHeadDuck.quack();
+        duckCall.quack();
+        rubberDuck.quack();    
+        gooseDuck.quack();
     }
-
-    void simulate(Quackable duck) {
-        duck.quack();
-    }
-}
+} 
