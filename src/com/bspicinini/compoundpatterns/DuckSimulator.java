@@ -4,44 +4,38 @@ public class DuckSimulator {
 
     public static void main(String[] args) {
         var simulator = new DuckSimulator();
-        var duckFactory = new CountingDuckFactory();
-        simulator.simulate(duckFactory);
+        var factory = new CountingDuckFactory();
+        // var factory = new DuckFactory();
+        simulator.simulate(factory);
     }
 
-    void simulate(AbstractDuckFactory duckFactory) {
+    void simulate(AbstractDuckFactory factory) {
         
-        var redHeadDuck = duckFactory.createRedHeadDuck();
-        var duckCall = duckFactory.createDuckCall();
-        var rubberDuck = duckFactory.createRubberDuck();
+        var redHeadDuck = factory.createRedHeadDuck();
+        var duckCall = factory.createDuckCall();
+        var rubberDuck = factory.createRubberDuck();
         var gooseDuck = new GooseAdapter(new Goose());
 
-        System.out.println("\nDuck Simulator: With Composite - Flocks");
         var flockOfDucks = new Flock();
         flockOfDucks.add(redHeadDuck);
         flockOfDucks.add(duckCall);
         flockOfDucks.add(rubberDuck);
         flockOfDucks.add(gooseDuck);
-        
-        var mallardDuck = duckFactory.createMallardDuck();
-        var mallardTwo = duckFactory.createMallardDuck();
-        var mallardThree = duckFactory.createMallardDuck();
-        var mallardFour = duckFactory.createMallardDuck();
+
+        var mallardDuck = factory.createMallardDuck();
+        var mallardDuckTwo = factory.createMallardDuck();
+        var mallardDuckThree = factory.createMallardDuck();
+        var mallardDuckFour = factory.createMallardDuck();
 
         var flockOfMallards = new Flock();
         flockOfMallards.add(mallardDuck);
-        flockOfMallards.add(mallardTwo);
-        flockOfMallards.add(mallardThree);
-        flockOfMallards.add(mallardFour);
+        flockOfMallards.add(mallardDuckTwo);
+        flockOfMallards.add(mallardDuckThree);
+        flockOfMallards.add(mallardDuckFour);
 
         flockOfDucks.add(flockOfMallards);
-        
-        var quackologist = new Quackologist();
-        flockOfDucks.registerObserver(quackologist);
-        System.out.println("\nDuck Simulator: Whole Flock Simulation");    
-        
+
         simulate(flockOfDucks);
-        System.out.println("\nDuck Simulator: Mallard Flock Simulation");
-        simulate(flockOfMallards);
 
         System.out.println("The ducks quacked " + QuackCounter.getQuacks() + " times");
     }
@@ -49,4 +43,4 @@ public class DuckSimulator {
     void simulate(Quackable duck) {
         duck.quack();
     }
-}
+} 
