@@ -1,5 +1,5 @@
 package compoundpatterns;
 
-public interface Quackable extends QuackObservable {
+public interface Quackable {
     void quack();
 }
